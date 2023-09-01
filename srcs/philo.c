@@ -6,44 +6,70 @@
 /*   By: tgomes-l <tgomes-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 14:35:14 by tgomes-l          #+#    #+#             */
-/*   Updated: 2023/08/06 16:11:35 by tgomes-l         ###   ########.fr       */
+/*   Updated: 2023/09/01 18:08:09 by tgomes-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void init_params(int argc, char **argv)
+void	init_table(t_table *table, int philo_num, int must_eat_num)
 {
-	t_params *params;
-	
-	//parameters for arguments
-	params->philo_nbr = ft_atoi(argv[1]);
-	params->time_to_die = ft_atoi(argvp[2]);
-	params->time_to_eat = ft_atoi(argv[3]);
-	params->time_to_sleep = ft_atoi(argv[4]);
-	if (argc == 6)
-		params->max_meals = ft_atoi(arg[5]);
-	//extra
-	params->is_dead = 0;
-	//params->timer = 0;
-	//threaths and mutex	
+	table->num_philos = philo_num;
+	table->must_eat_num = must_eat_num;
+	table->has_dead = 0;
+	gettimeofday(&table->start_time, NULL);
+	table->philos = malloc(philo_num * sizeof(t_philo));
+	table->chopsticks = malloc(philo_num * sizeof(pthread_mutex_t));
+	table->threads = malloc(philo_num * sizeof(pthread_t));
+	pthread_mutex_init(&table->print_lock, NULL);
+	memset(table->philos, 0, philo_num * sizeof(t_philo));
 }
 
-int main(int argc, char **argv)
+void	init_philos(t_table *table, int time_to_die, int time_to_eat, int time_to_sleep)
 {
-	int i = 0;
-	if(argc < 5 | argc > 6)
+	int	i;
+
+	i = 0;
+	while (i < table->num_philos)
 	{
-		printf("Invalid number of arguments\n");
-		return (0);
+		table->philos[i].id = i + 1;
+		table->philos[i].time_to_die = time_to_die;
+		table->philos[i].time_to_eat = time_to_eat;
+		table->philos[i].time_to_sleep = time_to_sleep;
+		table->philos[i].last_time_to_eat = 0;
+		table->philos[i].eat_count = 0;
+		table->philos[i].table = table;
+		table->philos[i].left_chopstick = &table->chopsticks[i];
+		table->philos[i].right_chopstick = &table->chopsticks[(i + 1)
+			% table->num_philos];
+		i++;
+	}
+}
+
+void	init_chopsticks(t_table *table)
+{
+	int	i;
+
+	i = -1;
+	while (++i < table->num_philos)
+		pthread_mutex_init(&table->chopsticks[i], NULL);
+}
+
+void	philo_sleep(int type, t_philo *philo)
+{
+	if (type == 1)
+	{
+		print_log(philo, "is sleeping");
+		if (philo->time_to_sleep >= philo->time_to_die)
+			usleep(1000 * (philo->time_to_die));
+		else
+			usleep(philo->time_to_sleep * 1000);
 	}
 	else
 	{
-		while(argv[1][i])
-		{
-			i++;
-		}
-		print_results();
+		if (philo->time_to_eat >= philo->time_to_die)
+			usleep(1000 * (philo->time_to_die));
+		else
+			usleep(philo->time_to_eat * 1000);
 	}
-	return(0);
 }
