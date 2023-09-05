@@ -6,7 +6,7 @@
 /*   By: tgomes-l <tgomes-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 14:35:14 by tgomes-l          #+#    #+#             */
-/*   Updated: 2023/09/01 18:08:09 by tgomes-l         ###   ########.fr       */
+/*   Updated: 2023/09/05 13:18:41 by tgomes-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	init_table(t_table *table, int philo_num, int must_eat_num)
 	memset(table->philos, 0, philo_num * sizeof(t_philo));
 }
 
-void	init_philos(t_table *table, int time_to_die, int time_to_eat, int time_to_sleep)
+void	init_philos(t_table *table, int time_to_die, int time_to_eat, 
+		int time_to_sleep)
 {
 	int	i;
 
@@ -59,7 +60,7 @@ void	philo_sleep(int type, t_philo *philo)
 {
 	if (type == 1)
 	{
-		print_log(philo, "is sleeping");
+		print_log(philo, "\x1b[44mis sleeping\x1b[0m\n");
 		if (philo->time_to_sleep >= philo->time_to_die)
 			usleep(1000 * (philo->time_to_die));
 		else

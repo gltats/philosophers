@@ -6,7 +6,7 @@
 /*   By: tgomes-l <tgomes-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 14:35:14 by tgomes-l          #+#    #+#             */
-/*   Updated: 2023/09/01 17:57:21 by tgomes-l         ###   ########.fr       */
+/*   Updated: 2023/09/05 13:18:17 by tgomes-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*start_routine(void *v_philo)
 		&& !((philo->eat_count == philo->table->must_eat_num)
 			&& philo->table->must_eat_num != 0))
 	{
-		print_log(philo, "is thinking");
+		print_log(philo, "\x1b[42mis thinking\x1b[0m");
 		if (philo->id % 2 == 1)
 			eat(philo, 1);
 		else
@@ -61,17 +61,17 @@ int	arg_check(char **argv, int argc)
 int	initialize_table_and_philos(t_table *table, char **argv, int argc)
 {
 	int		must_eat_num;
-	
+
 	must_eat_num = -1;
 	if (!arg_check(argv, argc) || ft_atoi(argv[1]) == -1
 		|| ft_atoi(argv[2]) == -1 || ft_atoi(argv[3]) == -1
 		|| ft_atoi(argv[4]) == -1 || (argc == 6 && ft_atoi(argv[5]) == -1))
 	{
-		ft_putstr("Invalid arguments!\n");
-		ft_putstr("Your aguments should contain:\n");
-		ft_putstr("Nmb of philos, time to die, time to eat & time to sleep\n");
-		ft_putstr("if you want also number of times each philo should eat\n");
-		ft_putstr("example: ./philo.. 5 100 200 200 3\n");
+		ft_putstr("\x1b[31mInvalid arguments!\x1b[0m\n");
+		ft_putstr("\x1b[35mYour aguments should contain:\x1b[0m\n");
+		ft_putstr("\x1b[35mNumber of philos, die ⏰, eat ⏰ & sleep ⏰\x1b[0m\n");
+		ft_putstr("\x1b[35mOptional: times_each_philosopher_must_eat\x1b[0m\n");
+		ft_putstr("\x1b[32mexample: ./philo.. 5 100 200 200 3\x1b[0m\n");
 		return (1);
 	}
 	if (argc == 6)

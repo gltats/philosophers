@@ -22,12 +22,11 @@ NAME = philosophers
 
 # Compiler and flags
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -I includes/ -I libft/includes/
+CFLAGS = -Wall -Wextra -Werror -I includes/
 
 # Folders & files
-LIBFT = -L libft -lft
 HEADER = philo.h
-FILES = philo utils main
+FILES = libft_functions philo utils main 
 
 #timing
 TIMER = sleep 0.5
@@ -43,10 +42,9 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@echo "$(CYAN)$$HEADER$(RESET)"
 	@echo "\n"
-	@make -C libft/
 	@echo "$(EMOJI_CLOCK)$(ORANGE)Compiling philo...$(RESET)"
 	@$(TIMER)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
 	@echo "$(EMOJI_HAPPY)$(GREEN)DONE ✓✓$(RESET)"
 
 %.o: %.c
@@ -55,16 +53,11 @@ $(NAME): $(OBJ)
 	@${CC} ${CFLAGS} -c $< -o $@
 
 clean:
-	@echo "$(RESET)$(ORANGE)$(CLEANING_TOOL)Cleaning libft...$(RESET)"
-	@make clean -C libft/
 	@echo "$(RESET)$(ORANGE)$(CLEANING_TOOL)Cleaning binaries...$(RESET)"
 	@rm -f $(OBJ)
 	@echo "$(RESET)$(GREEN)CLEANED ✓✓$(RESET)"
 
 fclean:
-	@echo "$(RESET)$(ORANGE)$(CLEANING_TOOL)Cleaning libft object files...$(RESET)"
-	@$(TIMER)
-	@make fclean -C libft/
 	@echo "$(RESET)$(ORANGE)$(CLEANING_TOOL)Cleaning object files...$(RESET)"
 	@$(TIMER)
 	@rm -f $(OBJ)
@@ -79,8 +72,6 @@ re: fclean all
 norm:
 	@echo "$(CYAN)\nChecking norm for $(NAME)...$(RESET)\n"
 	@norminette $(SRC) includes/ && echo "$(EMOJI_HAPPY)$(GREEN)Norm check passed!$(RESET)$(EMOJI_CELEBRATE)" || echo "$(EMOJI_SAD)$(RED)Norm check failed!$(RESET)$(EMOJI_SAD)"
-	@echo "$(CYAN)\nChecking norm for LIBFT...$(RESET)\n"
-	@norminette $(SRC) libft/ && echo "$(EMOJI_HAPPY)$(GREEN)Norm check passed!$(RESET)$(EMOJI_CELEBRATE)" || echo "$(EMOJI_SAD)$(RED)Norm check failed!$(RESET)$(EMOJI_SAD)"
 
 .PHONY: clean fclean re test norm
 

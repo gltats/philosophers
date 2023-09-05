@@ -1,17 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   libft_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tgomes-l <tgomes-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/14 08:20:13 by tgomes-l          #+#    #+#             */
-/*   Updated: 2023/09/01 16:47:50 by tgomes-l         ###   ########.fr       */
+/*   Created: 2023/09/05 12:39:47 by tgomes-l          #+#    #+#             */
+/*   Updated: 2023/09/05 13:14:14 by tgomes-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
-//convert ASCII string to integer
+#include "philo.h"
+
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+void	ft_putstr(char *s)
+{
+	while (*s)
+		ft_putchar(*s++);
+}
 
 int	ft_atoi(const char *str)
 {
@@ -41,14 +51,3 @@ int	ft_atoi(const char *str)
 	}
 	return (result * sign);
 }
-
-// int main()
-// {
-// 	int i;
-//    char *value;	
-// 	value = "+548";	
-// 	i = atoi(value);
-//    printf("Function, this is the number: %d\n", i);
-// 	i = ft_atoi(value);
-// 	printf("this is the number: %d\n", i);
-// }
