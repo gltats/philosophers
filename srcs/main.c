@@ -6,7 +6,7 @@
 /*   By: tgomes-l <tgomes-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 14:35:14 by tgomes-l          #+#    #+#             */
-/*   Updated: 2023/09/05 13:18:17 by tgomes-l         ###   ########.fr       */
+/*   Updated: 2023/09/05 22:12:25 by tgomes-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ void	*start_routine(void *v_philo)
 		&& !((philo->eat_count == philo->table->must_eat_num)
 			&& philo->table->must_eat_num != 0))
 	{
+		pthread_mutex_lock(&philo->table->print_lock);
 		print_log(philo, "\x1b[42mis thinking\x1b[0m");
+		pthread_mutex_unlock(&philo->table->print_lock);
 		if (philo->id % 2 == 1)
 			eat(philo, 1);
 		else

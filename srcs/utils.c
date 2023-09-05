@@ -6,7 +6,7 @@
 /*   By: tgomes-l <tgomes-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 14:35:14 by tgomes-l          #+#    #+#             */
-/*   Updated: 2023/09/05 13:19:04 by tgomes-l         ###   ########.fr       */
+/*   Updated: 2023/09/05 22:16:26 by tgomes-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,8 @@ long	get_timestamp(t_philo *philo)
 
 void	print_log(t_philo *philo, char *s)
 {
-	pthread_mutex_lock(&philo->table->print_lock);
 	if (!philo->table->has_dead)
 		printf("%ld %d %s\n", get_timestamp(philo), philo->id, s);
-	pthread_mutex_unlock(&philo->table->print_lock);
 }
 
 void	eat_2(t_philo *philo, pthread_mutex_t *first_chopstick,
