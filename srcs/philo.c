@@ -6,7 +6,7 @@
 /*   By: tgomes-l <tgomes-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 14:35:14 by tgomes-l          #+#    #+#             */
-/*   Updated: 2023/09/05 13:18:41 by tgomes-l         ###   ########.fr       */
+/*   Updated: 2023/09/05 22:00:41 by tgomes-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	philo_sleep(int type, t_philo *philo)
 {
 	if (type == 1)
 	{
-		print_log(philo, "\x1b[44mis sleeping\x1b[0m\n");
+		print_log(philo, "\x1b[44mis sleeping\x1b[0m");
 		if (philo->time_to_sleep >= philo->time_to_die)
 			usleep(1000 * (philo->time_to_die));
 		else
