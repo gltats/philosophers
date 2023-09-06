@@ -18,15 +18,15 @@ CLEANING_TOOL := \xF0\x9F\xA7\xBD
 
 
 # Binary name
-NAME = philosophers
+NAME = philo
 
 # Compiler and flags
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -I includes/
+CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g -I includes/
 
 # Folders & files
 HEADER = philo.h
-FILES = libft_functions philo utils main 
+FILES = libft_functions philo utils args main 
 
 #timing
 TIMER = sleep 0.5

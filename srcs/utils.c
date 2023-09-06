@@ -6,7 +6,7 @@
 /*   By: tgomes-l <tgomes-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 14:35:14 by tgomes-l          #+#    #+#             */
-/*   Updated: 2023/09/05 22:16:26 by tgomes-l         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:19:43 by tgomes-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_dead(t_philo *philo)
 	current_time = get_timestamp(philo);
 	if (current_time - philo->last_time_to_eat >= philo->time_to_die)
 	{
-		print_log(philo, "\x1b[41mdied\x1b[0m\n");
+		print_log(philo, "\x1b[41mdied\x1b[0m");
 		pthread_mutex_lock(&philo->table->print_lock);
 		philo->table->has_dead = 1;
 		pthread_mutex_unlock(&philo->table->print_lock);
@@ -51,11 +51,13 @@ long	get_timestamp(t_philo *philo)
 
 void	print_log(t_philo *philo, char *s)
 {
+	pthread_mutex_lock(&philo->table->print_lock);
 	if (!philo->table->has_dead)
 		printf("%ld %d %s\n", get_timestamp(philo), philo->id, s);
+	pthread_mutex_unlock(&philo->table->print_lock);
 }
 
-void	eat_2(t_philo *philo, pthread_mutex_t *first_chopstick,
+static void	eat_2(t_philo *philo, pthread_mutex_t *first_chopstick,
 		pthread_mutex_t *second_chopstick)
 {
 	pthread_mutex_lock(first_chopstick);

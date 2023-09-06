@@ -6,7 +6,7 @@
 /*   By: tgomes-l <tgomes-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:39:47 by tgomes-l          #+#    #+#             */
-/*   Updated: 2023/09/05 13:14:14 by tgomes-l         ###   ########.fr       */
+/*   Updated: 2023/09/06 12:53:25 by tgomes-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,22 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return (result * sign);
+}
+
+static int	ft_isdigit(int x)
+{
+	if (x >= '0' && x <= '9')
+		return (1);
+	return (0);
+}
+
+int	is_numeric_string(const char *str)
+{
+	while (*str)
+	{
+		if (!ft_isdigit(*str))
+			return (0);
+		str++;
+	}
+	return (1);
 }

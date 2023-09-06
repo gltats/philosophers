@@ -6,7 +6,7 @@
 /*   By: tgomes-l <tgomes-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:14:37 by ikayacio          #+#    #+#             */
-/*   Updated: 2023/09/05 13:12:17 by tgomes-l         ###   ########.fr       */
+/*   Updated: 2023/09/06 12:43:54 by tgomes-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,21 @@ typedef struct s_table {
 	struct timeval	start_time;
 }	t_table;
 
+int		arg_check(char **argv, int argc);
+void	args_error(void);
 void	init_table(t_table *table, int philo_num, int must_eat_num);
 void	init_philos(t_table *table, int time_to_die, 
 			int time_to_eat, int time_to_sleep);
 void	init_chopsticks(t_table *table);
+void	philo_sleep(int type, t_philo *philo);
+int		is_dead(t_philo *philo);
 long	get_timestamp(t_philo *philo);
 void	print_log(t_philo *philo, char *s);
 void	eat(t_philo *philo, int type);
-int		is_dead(t_philo *philo);
 void	philo_sleep(int type, t_philo *philo);
 void	ft_putchar(char c);
 void	ft_putstr(char *s);
 int		ft_atoi(const char *str);
+int		is_numeric_string(const char *str);
+
 #endif
